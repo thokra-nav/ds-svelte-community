@@ -25,10 +25,22 @@ changelogs = [
   "@navikt/aksel-icons/CHANGELOG.md",
 ]
 
+[budget]
+currency = "USD"
+monthly_hard_limit = 10.0
+warning_fraction = 0.8
+max_task_reservation = 2.0
+on_warning = "prefer-lower-cost-routes"
+on_limit = "pause-new-model-work"
+
 [limits]
 max_active_pull_requests = 1
+max_parallel_tasks = 1
+max_attempts_per_task = 1
 max_changed_files = 10
 max_diff_lines = 750
+task_timeout_minutes = 45
+lease_minutes = 60
 
 [classification]
 new_components = "always-attempt"
@@ -55,6 +67,7 @@ complex_investigation_suggestions = true
 max_manual_test_steps = 7
 include_upstream_summary = true
 include_cost = true
+include_model_route = true
 include_changed_paths = true
 include_html_diff = true
 
@@ -118,3 +131,8 @@ cwd = "packages/ds-svelte-community"
 argv = ["bun", "run", "test:visual-evidence", "--timeout", "30000"]
 env = { AI_CONTEXT = "true", VISUAL_TESTS = "true", AI_VISUAL_EVIDENCE_DIR = ".ai-maintainer/visual-evidence" }
 required = true
+
+[github]
+branch_prefix = "ai-maintainer/"
+authorized_associations = ["OWNER", "MEMBER", "COLLABORATOR"]
+commands_enabled = false
