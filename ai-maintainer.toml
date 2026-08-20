@@ -10,6 +10,7 @@ instructions = [".github/copilot-instructions.md"]
 repository = "navikt/aksel"
 release_source = "github-releases"
 include_prereleases = false
+check_schedule = "0 6 * * *"
 packages = [
   "@navikt/ds-react",
   "@navikt/ds-css",
