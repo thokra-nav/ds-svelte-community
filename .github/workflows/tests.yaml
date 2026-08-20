@@ -27,7 +27,7 @@ jobs:
           bun run build:libs
           bun run sync
 
-      - name: Test and lint ds-svelte-community
+      - name: Test ds-svelte-community
         id: test
         continue-on-error: true
         env:
@@ -35,7 +35,19 @@ jobs:
         run: |-
           cd packages/ds-svelte-community
           bun run test --timeout 30000
+
+      - name: Lint ds-svelte-community
+        id: lint
+        continue-on-error: true
+        run: |-
+          cd packages/ds-svelte-community
           bun run lint
+
+      - name: Check ds-svelte-community
+        id: check
+        continue-on-error: true
+        run: |-
+          cd packages/ds-svelte-community
           bun run check
 
       - name: Report visual test failures
@@ -59,7 +71,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Fail if tests failed
-        if: steps.test.outcome == 'failure'
+        if: steps.test.outcome == 'failure' || steps.lint.outcome == 'failure' || steps.check.outcome == 'failure'
         run: exit 1
 
       - name: Test and lint vite-plugin-svelte-docs

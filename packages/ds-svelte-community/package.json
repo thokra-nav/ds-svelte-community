@@ -26,6 +26,7 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"test": "bun run test:unit",
 		"test:unit": "bun test",
+		"test:visual-evidence": "bun run scripts/run-visual-evidence.ts",
 		"test:unit:watch": "bun test --watch",
 		"test:visual-report": "bun run scripts/visual-test-reporter.ts",
 		"sync": "svelte-kit sync"

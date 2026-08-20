@@ -1,0 +1,751 @@
+# Canonical keys are @navikt/ds-react export names. target_export records a
+# deliberately renamed public Svelte export.
+
+[components.Accordion]
+status = "supported"
+risk = "medium"
+
+[components.AccordionContent]
+status = "different-api"
+risk = "medium"
+reason = "Provided as an Accordion snippet rather than a separately exported Svelte component."
+
+[components.AccordionHeader]
+status = "different-api"
+risk = "medium"
+reason = "Provided as an Accordion snippet rather than a separately exported Svelte component."
+
+[components.AccordionItem]
+status = "supported"
+risk = "medium"
+
+[components.ActionMenu]
+status = "experimental"
+risk = "complex"
+
+[components.ActionMenuCheckboxItem]
+status = "experimental"
+risk = "complex"
+
+[components.ActionMenuContent]
+status = "missing"
+risk = "complex"
+reason = "Menu content needs focus management, keyboard navigation, and floating positioning."
+
+[components.ActionMenuDivider]
+status = "experimental"
+risk = "complex"
+
+[components.ActionMenuGroup]
+status = "experimental"
+risk = "complex"
+
+[components.ActionMenuItem]
+status = "experimental"
+risk = "complex"
+
+[components.ActionMenuLabel]
+status = "missing"
+risk = "medium"
+
+[components.ActionMenuRadioGroup]
+status = "experimental"
+risk = "complex"
+
+[components.ActionMenuRadioItem]
+status = "experimental"
+risk = "complex"
+
+[components.ActionMenuSub]
+status = "experimental"
+risk = "complex"
+
+[components.ActionMenuSubContent]
+status = "missing"
+risk = "complex"
+reason = "Nested menus require focus management, keyboard navigation, and positioning."
+
+[components.ActionMenuSubTrigger]
+status = "missing"
+risk = "complex"
+reason = "Nested-menu triggers require keyboard navigation and focus management."
+
+[components.ActionMenuTrigger]
+status = "missing"
+risk = "complex"
+reason = "Menu triggers coordinate focus management and floating positioning."
+
+[components.Alert]
+status = "supported"
+risk = "low"
+
+[components.Bleed]
+status = "supported"
+risk = "low"
+
+[components.BodyLong]
+status = "supported"
+risk = "low"
+
+[components.BodyShort]
+status = "supported"
+risk = "low"
+
+[components.Box]
+status = "supported"
+risk = "low"
+
+[components.BoxNew]
+status = "missing"
+risk = "low"
+
+[components.Button]
+status = "supported"
+risk = "medium"
+
+[components.Chat]
+status = "supported"
+risk = "low"
+
+[components.ChatBubble]
+status = "supported"
+risk = "low"
+
+[components.Checkbox]
+status = "supported"
+risk = "medium"
+
+[components.CheckboxGroup]
+status = "supported"
+risk = "medium"
+
+[components.Chips]
+status = "supported"
+risk = "medium"
+
+[components.ChipsRemovable]
+status = "supported"
+risk = "medium"
+target_export = "RemovableChip"
+
+[components.ChipsToggle]
+status = "supported"
+risk = "medium"
+target_export = "ToggleChip"
+
+[components.ConfirmationPanel]
+status = "ignored"
+risk = "medium"
+reason = "This component is not planned for the Svelte package."
+
+[components.CopyButton]
+status = "supported"
+risk = "medium"
+
+[components.DatePicker]
+status = "missing"
+risk = "complex"
+reason = "Calendar logic, focus movement, keyboard navigation, and popover positioning."
+
+[components.DatePickerInput]
+status = "missing"
+risk = "complex"
+reason = "Date input parsing is coupled to calendar focus and popover positioning."
+
+[components.DatePickerStandalone]
+status = "missing"
+risk = "complex"
+reason = "Calendar logic and keyboard focus management require dedicated design work."
+
+[components.Detail]
+status = "supported"
+risk = "low"
+
+[components.Dialog]
+status = "missing"
+risk = "complex"
+reason = "Dialogs require portals, focus trapping, and keyboard and screen-reader behavior."
+
+[components.DialogBody]
+status = "missing"
+risk = "complex"
+reason = "Dialog composition is coupled to portal and focus-management behavior."
+
+[components.DialogCloseTrigger]
+status = "missing"
+risk = "complex"
+reason = "Dialog triggers coordinate focus restoration and keyboard behavior."
+
+[components.DialogDescription]
+status = "missing"
+risk = "complex"
+reason = "Dialog composition is coupled to accessible focus-management behavior."
+
+[components.DialogFooter]
+status = "missing"
+risk = "complex"
+reason = "Dialog composition is coupled to portal and focus-management behavior."
+
+[components.DialogHeader]
+status = "missing"
+risk = "complex"
+reason = "Dialog composition is coupled to portal and focus-management behavior."
+
+[components.DialogPopup]
+status = "missing"
+risk = "complex"
+reason = "Dialog popups require portals, focus trapping, and positioning."
+
+[components.DialogTitle]
+status = "missing"
+risk = "complex"
+reason = "Dialog composition is coupled to accessible focus-management behavior."
+
+[components.DialogTrigger]
+status = "missing"
+risk = "complex"
+reason = "Dialog triggers coordinate focus restoration and keyboard behavior."
+
+[components.Dropdown]
+status = "missing"
+risk = "complex"
+reason = "Dropdowns require keyboard navigation, focus management, and positioning."
+
+[components.DropdownMenu]
+status = "missing"
+risk = "complex"
+reason = "Dropdown menus require keyboard navigation, focus management, and positioning."
+
+[components.DropdownToggle]
+status = "missing"
+risk = "complex"
+reason = "Dropdown toggles coordinate focus management and positioned content."
+
+[components.ErrorMessage]
+status = "supported"
+risk = "low"
+
+[components.ErrorSummary]
+status = "supported"
+risk = "medium"
+
+[components.ErrorSummaryItem]
+status = "supported"
+risk = "medium"
+
+[components.ExpansionCard]
+status = "supported"
+risk = "medium"
+
+[components.ExpansionCardContent]
+status = "missing"
+risk = "low"
+
+[components.ExpansionCardDescription]
+status = "missing"
+risk = "low"
+
+[components.ExpansionCardHeader]
+status = "missing"
+risk = "medium"
+
+[components.ExpansionCardTitle]
+status = "supported"
+risk = "medium"
+
+[components.Fieldset]
+status = "supported"
+risk = "low"
+
+[components.FileUpload]
+status = "missing"
+risk = "complex"
+reason = "File handling, drag and drop, and accessible keyboard behavior need dedicated design work."
+
+[components.FileUploadDropzone]
+status = "missing"
+risk = "complex"
+reason = "Dropzones require drag-and-drop, file handling, and screen-reader behavior."
+
+[components.FileUploadItem]
+status = "missing"
+risk = "complex"
+reason = "File-item behavior is coupled to file handling and accessible interactions."
+
+[components.FileUploadTrigger]
+status = "missing"
+risk = "complex"
+reason = "File triggers require file handling and accessible keyboard behavior."
+
+[components.FormProgress]
+status = "missing"
+risk = "medium"
+
+[components.FormProgressStep]
+status = "missing"
+risk = "medium"
+
+[components.FormSummary]
+status = "missing"
+risk = "medium"
+
+[components.FormSummaryAnswer]
+status = "missing"
+risk = "low"
+
+[components.FormSummaryAnswers]
+status = "missing"
+risk = "low"
+
+[components.FormSummaryEditLink]
+status = "missing"
+risk = "medium"
+
+[components.FormSummaryFooter]
+status = "missing"
+risk = "low"
+
+[components.FormSummaryHeader]
+status = "missing"
+risk = "low"
+
+[components.FormSummaryHeading]
+status = "missing"
+risk = "low"
+
+[components.FormSummaryLabel]
+status = "missing"
+risk = "low"
+
+[components.FormSummaryValue]
+status = "missing"
+risk = "low"
+
+[components.GlobalAlert]
+status = "supported"
+risk = "low"
+
+[components.GlobalAlertCloseButton]
+status = "supported"
+risk = "medium"
+
+[components.GlobalAlertContent]
+status = "supported"
+risk = "low"
+
+[components.GlobalAlertHeader]
+status = "supported"
+risk = "low"
+
+[components.GlobalAlertTitle]
+status = "supported"
+risk = "low"
+
+[components.GuidePanel]
+status = "supported"
+risk = "low"
+
+[components.HGrid]
+status = "supported"
+risk = "low"
+
+[components.HStack]
+status = "supported"
+risk = "low"
+
+[components.Heading]
+status = "supported"
+risk = "low"
+
+[components.HelpText]
+status = "supported"
+risk = "medium"
+
+[components.Hide]
+status = "supported"
+risk = "low"
+
+[components.InfoCard]
+status = "supported"
+risk = "low"
+
+[components.InfoCardContent]
+status = "supported"
+risk = "low"
+
+[components.InfoCardHeader]
+status = "supported"
+risk = "low"
+
+[components.InfoCardMessage]
+status = "missing"
+risk = "low"
+
+[components.InfoCardTitle]
+status = "supported"
+risk = "low"
+
+[components.Ingress]
+status = "deprecated"
+risk = "low"
+reason = "Deprecated upstream; use BodyLong with size=\"large\" instead."
+
+[components.InlineMessage]
+status = "supported"
+risk = "low"
+
+[components.InternalHeader]
+status = "experimental"
+risk = "medium"
+
+[components.InternalHeaderButton]
+status = "experimental"
+risk = "medium"
+
+[components.InternalHeaderTitle]
+status = "experimental"
+risk = "medium"
+
+[components.InternalHeaderUser]
+status = "experimental"
+risk = "medium"
+
+[components.InternalHeaderUserButton]
+status = "experimental"
+risk = "medium"
+
+[components.Label]
+status = "supported"
+risk = "low"
+
+[components.Link]
+status = "supported"
+risk = "medium"
+
+[components.LinkCard]
+status = "supported"
+risk = "medium"
+
+[components.LinkCardAnchor]
+status = "supported"
+risk = "medium"
+
+[components.LinkCardDescription]
+status = "supported"
+risk = "low"
+
+[components.LinkCardFooter]
+status = "supported"
+risk = "low"
+
+[components.LinkCardIcon]
+status = "supported"
+risk = "low"
+
+[components.LinkCardImage]
+status = "supported"
+risk = "low"
+
+[components.LinkCardTitle]
+status = "supported"
+risk = "medium"
+
+[components.LinkPanel]
+status = "deprecated"
+risk = "low"
+reason = "Deprecated upstream; use LinkCard instead."
+
+[components.LinkPanelDescription]
+status = "deprecated"
+risk = "low"
+reason = "Deprecated upstream; use LinkCard instead."
+
+[components.LinkPanelTitle]
+status = "deprecated"
+risk = "low"
+reason = "Deprecated upstream; use LinkCard instead."
+
+[components.List]
+status = "supported"
+risk = "low"
+
+[components.ListItem]
+status = "supported"
+risk = "low"
+
+[components.Loader]
+status = "supported"
+risk = "low"
+
+[components.LocalAlert]
+status = "supported"
+risk = "low"
+
+[components.LocalAlertCloseButton]
+status = "supported"
+risk = "medium"
+
+[components.LocalAlertContent]
+status = "supported"
+risk = "low"
+
+[components.LocalAlertHeader]
+status = "supported"
+risk = "low"
+
+[components.LocalAlertTitle]
+status = "supported"
+risk = "low"
+
+[components.Modal]
+status = "supported"
+risk = "complex"
+
+[components.ModalBody]
+status = "different-api"
+risk = "complex"
+reason = "Provided through Modal slots rather than a separately exported Svelte component."
+
+[components.ModalFooter]
+status = "different-api"
+risk = "complex"
+reason = "Provided through Modal slots rather than a separately exported Svelte component."
+
+[components.ModalHeader]
+status = "different-api"
+risk = "complex"
+reason = "Provided through Modal slots rather than a separately exported Svelte component."
+
+[components.MonthPicker]
+status = "missing"
+risk = "complex"
+reason = "Month-calendar logic, focus movement, keyboard navigation, and positioning."
+
+[components.MonthPickerInput]
+status = "missing"
+risk = "complex"
+reason = "Month input parsing is coupled to calendar focus and popover positioning."
+
+[components.MonthPickerStandalone]
+status = "missing"
+risk = "complex"
+reason = "Month-calendar logic and keyboard focus management require dedicated design work."
+
+[components.Page]
+status = "supported"
+risk = "low"
+
+[components.PageBlock]
+status = "supported"
+risk = "low"
+
+[components.Pagination]
+status = "supported"
+risk = "medium"
+
+[components.PaginationItem]
+status = "supported"
+risk = "medium"
+
+[components.Panel]
+status = "deprecated"
+risk = "low"
+reason = "Deprecated upstream; use Box with padding and border instead."
+
+[components.Popover]
+status = "supported"
+risk = "complex"
+
+[components.PopoverContent]
+status = "missing"
+risk = "complex"
+reason = "Popover content needs focus handling and complex positioning."
+
+[components.Portal]
+status = "missing"
+risk = "complex"
+reason = "Portals require cross-tree ownership, focus, and accessibility behavior."
+
+[components.Process]
+status = "supported"
+risk = "low"
+
+[components.ProcessEvent]
+status = "supported"
+risk = "low"
+
+[components.ProgressBar]
+status = "supported"
+risk = "low"
+
+[components.Provider]
+status = "missing"
+risk = "complex"
+reason = "A shared provider introduces new cross-component context."
+
+[components.Radio]
+status = "supported"
+risk = "medium"
+
+[components.RadioGroup]
+status = "supported"
+risk = "medium"
+
+[components.ReadMore]
+status = "supported"
+risk = "medium"
+
+[components.Search]
+status = "supported"
+risk = "medium"
+
+[components.SearchButton]
+status = "supported"
+risk = "medium"
+
+[components.Select]
+status = "supported"
+risk = "medium"
+
+[components.Show]
+status = "supported"
+risk = "low"
+
+[components.Skeleton]
+status = "supported"
+risk = "low"
+
+[components.Spacer]
+status = "supported"
+risk = "low"
+
+[components.Stack]
+status = "supported"
+risk = "low"
+
+[components.Stepper]
+status = "supported"
+risk = "medium"
+
+[components.StepperStep]
+status = "supported"
+risk = "medium"
+target_export = "Step"
+
+[components.Switch]
+status = "supported"
+risk = "medium"
+
+[components.Table]
+status = "supported"
+risk = "low"
+
+[components.TableBody]
+status = "supported"
+risk = "low"
+target_export = "Tbody"
+
+[components.TableColumnHeader]
+status = "missing"
+risk = "medium"
+
+[components.TableDataCell]
+status = "supported"
+risk = "low"
+target_export = "Td"
+
+[components.TableExpandableRow]
+status = "supported"
+risk = "medium"
+target_export = "ExpandableRow"
+
+[components.TableHeader]
+status = "supported"
+risk = "low"
+target_export = "Thead"
+
+[components.TableHeaderCell]
+status = "supported"
+risk = "low"
+target_export = "Th"
+
+[components.TableRow]
+status = "supported"
+risk = "low"
+target_export = "Tr"
+
+[components.Tabs]
+status = "supported"
+risk = "medium"
+
+[components.TabsList]
+status = "supported"
+risk = "medium"
+target_export = "TabList"
+
+[components.TabsPanel]
+status = "supported"
+risk = "medium"
+target_export = "TabPanel"
+
+[components.TabsTab]
+status = "supported"
+risk = "medium"
+target_export = "Tab"
+
+[components.Tag]
+status = "supported"
+risk = "low"
+
+[components.Textarea]
+status = "supported"
+risk = "medium"
+
+[components.TextField]
+status = "supported"
+risk = "medium"
+
+[components.Theme]
+status = "supported"
+risk = "medium"
+
+[components.Timeline]
+status = "missing"
+risk = "complex"
+reason = "Timeline interaction requires date logic, positioning, and drag behavior."
+
+[components.TimelinePeriod]
+status = "missing"
+risk = "complex"
+reason = "Timeline periods require date logic, positioning, and drag behavior."
+
+[components.TimelinePin]
+status = "missing"
+risk = "complex"
+reason = "Timeline pins require date logic, positioning, and drag behavior."
+
+[components.TimelineRow]
+status = "missing"
+risk = "complex"
+reason = "Timeline rows are coupled to date positioning and drag behavior."
+
+[components.TimelineZoom]
+status = "missing"
+risk = "complex"
+reason = "Timeline zooming requires date logic and interactive positioning."
+
+[components.ToggleGroup]
+status = "supported"
+risk = "medium"
+
+[components.ToggleGroupItem]
+status = "supported"
+risk = "medium"
+
+[components.Tooltip]
+status = "supported"
+risk = "complex"
+
+[components.VStack]
+status = "supported"
+risk = "low"

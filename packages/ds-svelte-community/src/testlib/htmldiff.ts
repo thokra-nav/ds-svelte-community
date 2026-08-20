@@ -112,10 +112,10 @@ async function singleDiff(
 
 	if (!diffResult) {
 		if (process.env.VISUAL_TESTS && process.env.VISUAL_TESTS === "true" && !opts.visual?.skip) {
-			const screenshots = await testInChrome(svelteResult, bOrig, theme, opts.visual);
+			const testName = captureTestName();
+			const screenshots = await testInChrome(svelteResult, bOrig, theme, opts.visual, testName);
 			if (screenshots && typeof screenshots === "string") {
 				// Register the visual failure for reporting
-				const testName = captureTestName();
 				visualFailureCollector.addFailure(testName, screenshots, theme);
 
 				result.push("Visual differences found, see screenshots:");

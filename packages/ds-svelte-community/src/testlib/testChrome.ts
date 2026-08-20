@@ -7,6 +7,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { build } from "vite";
 import type { RenderOutput, RenderTheme } from "./render";
+import { configuredVisualEvidenceWriter } from "./visualEvidence";
 
 export const testPages = await mkdtemp(join(tmpdir(), "ds-svelte-test-"));
 let testCase = 0;
@@ -75,6 +76,7 @@ export async function testInChrome(
 	reactComponent: string,
 	theme: RenderTheme,
 	opts: looksSame.LooksSameOptions = {},
+	evidenceIdentity = "",
 ) {
 	await ensureInitialized(theme);
 
@@ -109,6 +111,18 @@ export async function testInChrome(
 		reactBuffer,
 		opts as looksSame.LooksSameOptions & { createDiffImage: true },
 	);
+	const evidence = configuredVisualEvidenceWriter();
+	if (evidence) {
+		const result = await evidence.record({
+			identity: evidenceIdentity + "\0" + svelteBody + "\0" + reactComponent,
+			theme,
+			svelte: svelteBuffer,
+			react: reactBuffer,
+			match: equal,
+			writeDiff: equal ? undefined : (diffPath) => diffImage.save(diffPath),
+		});
+		return equal ? true : result.diffPath!;
+	}
 	if (equal) {
 		return true;
 	}

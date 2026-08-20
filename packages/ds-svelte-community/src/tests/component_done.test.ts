@@ -2,161 +2,198 @@ import * as allSvelte from "$lib";
 import * as allSvelteExperimental from "$lib/experimental";
 import * as allReact from "@navikt/ds-react";
 import { describe, expect, it } from "bun:test";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+
+const componentStatuses = [
+	"supported",
+	"experimental",
+	"missing",
+	"deferred",
+	"ignored",
+	"deprecated",
+	"different-api",
+] as const;
+const componentRisks = ["low", "medium", "complex"] as const;
+const targetExportStatuses = new Set(["supported", "experimental"]);
+
+type ComponentStatus = (typeof componentStatuses)[number];
+type ComponentRisk = (typeof componentRisks)[number];
+type ComponentPolicy = {
+	status: ComponentStatus;
+	risk: ComponentRisk;
+	reason?: string;
+	owner?: string;
+	last_reviewed_upstream?: string;
+	target_export?: string;
+};
+type ComponentManifest = {
+	components: Record<string, ComponentPolicy>;
+};
+
+const manifest = loadComponentManifest();
+const reactComponents = Object.keys(allReact).filter(
+	(key) => isFirstLetterUppercase(key) && !key.includes("UNSAFE") && !key.includes("Context"),
+);
+const reactNestedComponents = reactComponents.flatMap((component) => {
+	const nested = Object.keys((allReact as never)[component]);
+	return nested
+		.filter(
+			(key) =>
+				!key.startsWith("use") &&
+				!["render", "$$typeof"].includes(key) &&
+				isFirstLetterUppercase(key),
+		)
+		.map((nestedComponent) => `${component}${nestedComponent}`);
+});
+const allReactComponents = [...reactComponents, ...reactNestedComponents];
+const svelteExports = {
+	stable: Object.keys(allSvelte),
+	experimental: Object.keys(allSvelteExperimental),
+};
+const allSvelteExports = [...svelteExports.stable, ...svelteExports.experimental];
+const manifestEntries = Object.entries(manifest.components);
+const expectedSvelteExports = manifestEntries
+	.filter(([, component]) => targetExportStatuses.has(component.status))
+	.map(([canonicalName, component]) => component.target_export ?? canonicalName);
 
 describe("which components are implemented", () => {
-	// Known missing components contains a list of components that are not implemented in Svelte yet.
-	// These are listed to allow the test to pass, but we want to keep track of them.
-	// The test will fail if we have the component, but it's still listed here.
-	const missingComponents: string[] = [
-		"ActionMenuContent",
-		"Dialog",
-		"DialogBody",
-		"DialogCloseTrigger",
-		"DialogDescription",
-		"DialogFooter",
-		"DialogHeader",
-		"DialogPopup",
-		"DialogTitle",
-		"DialogTrigger",
-		"ActionMenuLabel",
-		"ActionMenuSubContent",
-		"ActionMenuSubTrigger",
-		"ActionMenuTrigger",
-		"BoxNew",
-		"DatePicker",
-		"DatePickerInput",
-		"DatePickerStandalone",
-		"Dropdown",
-		"DropdownMenu",
-		"DropdownToggle",
-		"ExpansionCardContent",
-		"ExpansionCardDescription",
-		"ExpansionCardHeader",
-		"FileUpload",
-		"FileUploadDropzone",
-		"FileUploadItem",
-		"FileUploadTrigger",
-		"FormProgress",
-		"FormProgressStep",
-		"FormSummary",
-		"FormSummaryAnswer",
-		"FormSummaryAnswers",
-		"FormSummaryEditLink",
-		"FormSummaryFooter",
-		"FormSummaryHeader",
-		"FormSummaryHeading",
-		"FormSummaryLabel",
-		"FormSummaryValue",
-		"MonthPicker",
-		"MonthPickerInput",
-		"MonthPickerStandalone",
-		"PopoverContent",
-		"Portal",
-		"Provider",
-		"InfoCardMessage",
-		"TableColumnHeader",
-		"Timeline",
-		"TimelinePeriod",
-		"TimelinePin",
-		"TimelineRow",
-		"TimelineZoom",
-	];
-
-	// Names that differ between Svelte and React in the format { svelte: react }
-	const alteredNames: {
-		[A in keyof typeof allSvelte]?: string;
-	} = {
-		Tr: "TableRow",
-		Td: "TableDataCell",
-		Th: "TableHeaderCell",
-		Tbody: "TableBody",
-		Thead: "TableHeader",
-		ExpandableRow: "TableExpandableRow",
-
-		RemovableChip: "ChipsRemovable",
-		ToggleChip: "ChipsToggle",
-		Step: "StepperStep",
-		Tab: "TabsTab",
-		TabList: "TabsList",
-		TabPanel: "TabsPanel",
-	};
-
-	// Ignored components are components that we don't want to implement in Svelte, or is implmented in a different way (e.g. slots)
-	const ignoredComponents: string[] = [
-		"AccordionHeader", // Snippet
-		"AccordionContent", // Snippet
-		"ModalHeader", // Slot
-		"ModalBody", // Slot
-		"ModalFooter", // Slot
-		"ConfirmationPanel",
-		// Deprecated components - don't implement these
-		"Panel", // @deprecated Use Box with padding and border instead
-		"LinkPanel", // @deprecated Use LinkCard instead
-		"LinkPanelDescription", // @deprecated Use LinkCard instead
-		"LinkPanelTitle", // @deprecated Use LinkCard instead
-		"Ingress", // @deprecated Use BodyLong size="large" instead
-	];
-
-	const reactComponents = Object.keys(allReact).filter(
-		(key) => isFirstLetterUppercase(key) && !key.includes("UNSAFE") && !key.includes("Context"),
-	);
-
-	const reactNestedComponents = reactComponents.flatMap((comp) => {
-		const nested = Object.keys((allReact as never)[comp]);
-		return nested
-			.filter(
-				(key) =>
-					!key.startsWith("use") &&
-					["render", "$$typeof"].indexOf(key) < 0 &&
-					isFirstLetterUppercase(key),
-			)
-			.map((nestedComp) => `${comp}${nestedComp}`);
-	});
-
-	const allReactComponents = [...reactComponents, ...reactNestedComponents];
-	const targetReact = allReactComponents
-		.filter((key) => !ignoredComponents.includes(key))
-		.filter((key) => !missingComponents.includes(key));
-
-	const targetSvelte = [...Object.keys(allSvelteExperimental), ...Object.keys(allSvelte)].map(
-		(key) => {
-			if (alteredNames[key as never]) {
-				return alteredNames[key as never];
-			}
-			return key;
-		},
-	);
-
 	it("should include expected components", () => {
-		const missing = targetReact.filter((key) => !targetSvelte.includes(key)).sort();
+		const missing = allReactComponents
+			.filter((component) => !(component in manifest.components))
+			.sort();
 		expect(missing).toEqual([]);
 	});
 
 	it("should not include unexpected components", () => {
-		const dontWant = targetSvelte.filter((key) => !targetReact.includes(key)).sort();
-		expect(dontWant).toEqual([]);
+		const unexpected = allSvelteExports
+			.filter((component) => !expectedSvelteExports.includes(component))
+			.sort();
+		expect(unexpected).toEqual([]);
 	});
 
-	describe("const lists should only contain names in use", () => {
-		it("ignoredComponents excess", () => {
-			const missing = ignoredComponents.filter((key) => !allReactComponents.includes(key)).sort();
-			expect(missing).toEqual([]);
+	it("should export every supported component", () => {
+		const missing = expectedSvelteExports
+			.filter((component) => !allSvelteExports.includes(component))
+			.sort();
+		expect(missing).toEqual([]);
+	});
+
+	describe("manifest self-audit", () => {
+		it("rejects stale manifest entries", () => {
+			const stale = manifestEntries
+				.map(([canonicalName]) => canonicalName)
+				.filter((component) => !allReactComponents.includes(component))
+				.sort();
+			expect(stale).toEqual([]);
 		});
 
-		it("alteredNames excess", () => {
-			const missing = Object.values(alteredNames).filter(
-				(key) => !allReactComponents.includes(key),
+		it("keeps experimental exports in the experimental entry point", () => {
+			const misplaced = manifestEntries
+				.filter(([, component]) => component.status === "experimental")
+				.map(([canonicalName, component]) => component.target_export ?? canonicalName)
+				.filter((component) => !svelteExports.experimental.includes(component))
+				.sort();
+			expect(misplaced).toEqual([]);
+		});
+
+		it("keeps stable exports out of the experimental entry point", () => {
+			const misplaced = manifestEntries
+				.filter(([, component]) => component.status === "supported")
+				.map(([canonicalName, component]) => component.target_export ?? canonicalName)
+				.filter((component) => !svelteExports.stable.includes(component))
+				.sort();
+			expect(misplaced).toEqual([]);
+		});
+
+		it("validates target-export aliases", () => {
+			const aliases = manifestEntries.filter(
+				([canonicalName, component]) =>
+					component.target_export !== undefined && component.target_export !== canonicalName,
 			);
-			expect(missing).toEqual([]);
-		});
+			const invalidStatuses = aliases
+				.filter(([, component]) => !targetExportStatuses.has(component.status))
+				.map(([canonicalName]) => canonicalName)
+				.sort();
+			const redundant = manifestEntries
+				.filter(([canonicalName, component]) => component.target_export === canonicalName)
+				.map(([canonicalName]) => canonicalName)
+				.sort();
+			const duplicateTargets = expectedSvelteExports
+				.filter((target, index) => expectedSvelteExports.indexOf(target) !== index)
+				.sort();
 
-		it("missingComponents excess", () => {
-			const missing = missingComponents.filter((key) => !allReactComponents.includes(key)).sort();
-			expect(missing).toEqual([]);
+			expect(invalidStatuses).toEqual([]);
+			expect(redundant).toEqual([]);
+			expect(duplicateTargets).toEqual([]);
 		});
 	});
 });
 
-function isFirstLetterUppercase(str: string) {
-	return str[0] === str[0].toUpperCase();
+function loadComponentManifest(): ComponentManifest {
+	const path = resolve(import.meta.dir, "../../../../ai-maintainer-components.toml");
+	const parsed: unknown = Bun.TOML.parse(readFileSync(path, "utf8"));
+
+	if (
+		!isRecord(parsed) ||
+		!isRecord(parsed.components) ||
+		Object.keys(parsed.components).length === 0
+	) {
+		throw new Error("ai-maintainer-components.toml must define non-empty [components] entries");
+	}
+
+	const components: Record<string, ComponentPolicy> = {};
+	for (const [canonicalName, value] of Object.entries(parsed.components)) {
+		if (!isRecord(value) || !isComponentPolicy(value)) {
+			throw new Error(`ai-maintainer-components.toml has an invalid entry for ${canonicalName}`);
+		}
+		components[canonicalName] = value;
+	}
+
+	return { components };
+}
+
+function isComponentPolicy(value: Record<string, unknown>): value is ComponentPolicy {
+	const allowedFields = new Set([
+		"status",
+		"risk",
+		"reason",
+		"owner",
+		"last_reviewed_upstream",
+		"target_export",
+	]);
+	if (Object.keys(value).some((key) => !allowedFields.has(key))) {
+		return false;
+	}
+	const status = value.status;
+	const risk = value.risk;
+	const reason = value.reason;
+	const owner = value.owner;
+	const lastReviewedUpstream = value.last_reviewed_upstream;
+	const targetExport = value.target_export;
+	if (
+		typeof status !== "string" ||
+		!componentStatuses.includes(status as ComponentStatus) ||
+		typeof risk !== "string" ||
+		!componentRisks.includes(risk as ComponentRisk)
+	) {
+		return false;
+	}
+	if (
+		(reason !== undefined && typeof reason !== "string") ||
+		(owner !== undefined && typeof owner !== "string") ||
+		(lastReviewedUpstream !== undefined && typeof lastReviewedUpstream !== "string") ||
+		(targetExport !== undefined && typeof targetExport !== "string")
+	) {
+		return false;
+	}
+	return !["deferred", "ignored", "different-api"].includes(status) || Boolean(reason?.trim());
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isFirstLetterUppercase(value: string) {
+	return value[0] === value[0].toUpperCase();
 }

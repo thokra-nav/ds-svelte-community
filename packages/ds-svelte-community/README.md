@@ -13,7 +13,20 @@ VISUAL_TESTS=true bun run test
 ```
 
 `VISUAL_TESTS` will enable visual testing, which compares the visual appearance of the React and Svelte components.
+
 This is useful to ensure that the Svelte components visually match the React components.
+
+Production AI validation additionally sets `AI_VISUAL_EVIDENCE_DIR` to a
+repository-local path. Only with that explicit opt-in do visual tests retain
+the matched Svelte and React PNGs, mismatch diffs, and a versioned
+`manifest.json`. Normal developer visual test runs do not write these
+artifacts. `bun run test:visual-evidence` clears the configured directory
+before running so its manifest represents that validation run.
+
+The visual command requires Bun's headless Chrome `Bun.WebView` backend. If a
+runner cannot start that backend, it must fail without synthesizing a manifest;
+the worker will leave the resulting change in manual verification rather than
+marking visual evidence complete.
 
 Everything inside `src/lib` is part of the library, everything inside `src/routes` can be used as a showcase or preview app.
 

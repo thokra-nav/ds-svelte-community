@@ -1,0 +1,119 @@
+schema_version = 1
+
+[project]
+repository = "nais/ds-svelte-community"
+default_branch = "main"
+component_manifest = "ai-maintainer-components.toml"
+instructions = [".github/copilot-instructions.md"]
+
+[upstream]
+repository = "navikt/aksel"
+release_source = "github-releases"
+include_prereleases = false
+packages = [
+  "@navikt/ds-react",
+  "@navikt/ds-css",
+  "@navikt/ds-tokens",
+  "@navikt/ds-tailwind",
+  "@navikt/aksel-icons",
+]
+changelogs = [
+  "@navikt/core/react/CHANGELOG.md",
+  "@navikt/core/css/CHANGELOG.md",
+  "@navikt/core/tokens/CHANGELOG.md",
+  "@navikt/aksel-icons/CHANGELOG.md",
+]
+
+[limits]
+max_active_pull_requests = 1
+max_changed_files = 10
+max_diff_lines = 750
+
+[classification]
+new_components = "always-attempt"
+existing_backlog = "triage-then-low-risk"
+model_may_lower_deterministic_risk = false
+complex_signals = [
+  "focus-management",
+  "keyboard-navigation",
+  "date-or-calendar-logic",
+  "file-handling",
+  "drag-and-drop",
+  "portal",
+  "complex-positioning",
+  "virtualization",
+  "new-cross-component-context",
+  "screen-reader-specific-behavior",
+]
+
+[pull_requests]
+grouping = "component-or-tightly-coupled-family"
+fully_verified_draft = false
+manual_verification_draft = true
+complex_investigation_suggestions = true
+max_manual_test_steps = 7
+include_upstream_summary = true
+include_cost = true
+include_changed_paths = true
+include_html_diff = true
+
+[pull_requests.labels]
+managed = "ai-maintained"
+complex = "complex-change"
+manual_verification = "manual-verification-required"
+suggestion = "suggested-implementation"
+investigation_suggestion = "investigation-suggestion"
+deferred = "ai-deferred"
+budget_blocked = "ai-budget-blocked"
+
+[visual]
+required_for_ui_changes = true
+themes = ["light", "dark"]
+include_svelte_screenshot = true
+include_react_screenshot = true
+include_diff_on_mismatch = true
+evidence_directory = "packages/ds-svelte-community/.ai-maintainer/visual-evidence"
+
+[[validation.commands]]
+name = "install"
+cwd = "."
+argv = ["bun", "install", "--frozen-lockfile"]
+required = true
+
+[[validation.commands]]
+name = "build-libs"
+cwd = "."
+argv = ["bun", "run", "build:libs"]
+required = true
+
+[[validation.commands]]
+name = "sync"
+cwd = "."
+argv = ["bun", "run", "sync"]
+required = true
+
+[[validation.commands]]
+name = "lint"
+cwd = "."
+argv = ["bun", "run", "lint"]
+required = true
+
+[[validation.commands]]
+name = "check"
+cwd = "."
+argv = ["bun", "run", "check"]
+required = true
+
+[[validation.commands]]
+name = "unit"
+cwd = "packages/ds-svelte-community"
+argv = ["bun", "run", "test", "--timeout", "30000"]
+env = { AI_CONTEXT = "true" }
+required = true
+
+[[validation.commands]]
+name = "visual"
+cwd = "packages/ds-svelte-community"
+argv = ["bun", "run", "test:visual-evidence", "--timeout", "30000"]
+env = { AI_CONTEXT = "true", VISUAL_TESTS = "true", AI_VISUAL_EVIDENCE_DIR = ".ai-maintainer/visual-evidence" }
+required = true
