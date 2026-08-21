@@ -139,6 +139,22 @@ parity_scenarios = [
 [components.BodyShort]
 status = "supported"
 risk = "low"
+upstream_paths = [
+  "@navikt/core/react/src/typography/BodyShort.tsx",
+  "@navikt/core/react/src/typography/Typography.meta.ts",
+  "@navikt/core/react/src/typography/types.ts",
+  "@navikt/core/react/src/typography/util.ts",
+]
+target_paths = [
+  "packages/ds-svelte-community/src/lib/components/typography/BodyShort/BodyShort.svelte",
+  "packages/ds-svelte-community/src/lib/components/typography/BodyShort/type.ts",
+  "packages/ds-svelte-community/src/lib/components/typography/BodyShort/bodyshort.test.ts",
+]
+parity_scenarios = [
+  "Default element, size, and spacing",
+  "Alternative semantic elements",
+  "Truncation and custom classes",
+]
 
 [components.Box]
 status = "supported"
