@@ -154,17 +154,6 @@ function loadComponentManifest(): ComponentManifest {
 }
 
 function isComponentPolicy(value: Record<string, unknown>): value is ComponentPolicy {
-	const allowedFields = new Set([
-		"status",
-		"risk",
-		"reason",
-		"owner",
-		"last_reviewed_upstream",
-		"target_export",
-	]);
-	if (Object.keys(value).some((key) => !allowedFields.has(key))) {
-		return false;
-	}
 	const status = value.status;
 	const risk = value.risk;
 	const reason = value.reason;
