@@ -64,7 +64,7 @@ complex_signals = [
 [reconciliation]
 enabled = true
 campaign_days = 14
-max_tasks_per_plan = 3
+max_tasks_per_plan = 1
 age_boost_after_days = 30
 
 [pull_requests]
