@@ -18,6 +18,7 @@ packages = [
   "@navikt/ds-tailwind",
   "@navikt/aksel-icons",
 ]
+changelog_ref = "main"
 changelogs = [
   "@navikt/core/react/CHANGELOG.md",
   "@navikt/core/css/CHANGELOG.md",
