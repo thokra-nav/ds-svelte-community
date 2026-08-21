@@ -99,10 +99,42 @@ parity_scenarios = [
 [components.Bleed]
 status = "supported"
 risk = "low"
+upstream_paths = [
+  "@navikt/core/react/src/primitives/bleed/Bleed.tsx",
+  "@navikt/core/react/src/primitives/bleed/Bleed.meta.ts",
+  "@navikt/core/react/src/primitives/bleed/Bleed.stories.tsx",
+  "@navikt/core/react/src/primitives/bleed/index.ts",
+]
+target_paths = [
+  "packages/ds-svelte-community/src/lib/components/primitives/Bleed/Bleed.svelte",
+  "packages/ds-svelte-community/src/lib/components/primitives/Bleed/type.ts",
+  "packages/ds-svelte-community/src/lib/components/primitives/Bleed/bleed.test.ts",
+]
+parity_scenarios = [
+  "Default and responsive margin values",
+  "Inline and block rendering",
+  "Nested content and custom classes",
+]
 
 [components.BodyLong]
 status = "supported"
 risk = "low"
+upstream_paths = [
+  "@navikt/core/react/src/typography/BodyLong.tsx",
+  "@navikt/core/react/src/typography/Typography.meta.ts",
+  "@navikt/core/react/src/typography/types.ts",
+  "@navikt/core/react/src/typography/util.ts",
+]
+target_paths = [
+  "packages/ds-svelte-community/src/lib/components/typography/BodyLong/BodyLong.svelte",
+  "packages/ds-svelte-community/src/lib/components/typography/BodyLong/type.ts",
+  "packages/ds-svelte-community/src/lib/components/typography/BodyLong/bodylong.test.ts",
+]
+parity_scenarios = [
+  "Default element, size, and spacing",
+  "Alternative semantic elements",
+  "Truncation and custom classes",
+]
 
 [components.BodyShort]
 status = "supported"
@@ -151,6 +183,22 @@ parity_scenarios = [
 [components.Button]
 status = "supported"
 risk = "medium"
+upstream_paths = [
+  "@navikt/core/react/src/button/Button.tsx",
+  "@navikt/core/react/src/button/Button.meta.ts",
+  "@navikt/core/react/src/button/Button.stories.tsx",
+  "@navikt/core/react/src/button/index.ts",
+]
+target_paths = [
+  "packages/ds-svelte-community/src/lib/components/Button/Button.svelte",
+  "packages/ds-svelte-community/src/lib/components/Button/type.ts",
+  "packages/ds-svelte-community/src/lib/components/Button/button.test.ts",
+]
+parity_scenarios = [
+  "Variants, sizes, and full-width rendering",
+  "Loading and disabled states",
+  "Icons, accessible labels, and button semantics",
+]
 
 [components.Chat]
 status = "supported"
