@@ -62,20 +62,20 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"@navikt/ds-css": "8.9.1",
-		"@navikt/ds-tokens": "8.9.1",
+		"@navikt/ds-css": "8.16.1",
+		"@navikt/ds-tokens": "8.16.1",
 		"svelte": "^5.20.0"
 	},
 	"optionalDependencies": {
 		"svelte-floating-ui": "^1.6.2"
 	},
 	"devDependencies": {
-		"@navikt/ds-css": "8.9.1",
-		"@navikt/ds-tokens": "8.9.1",
+		"@navikt/ds-css": "8.16.1",
+		"@navikt/ds-tokens": "8.16.1",
 		"@nais/vite-plugin-svelte-docs": "workspace:*",
-		"@navikt/aksel-icons": "^8.9.1",
-		"@navikt/ds-react": "^8.9.1",
-		"@navikt/ds-tailwind": "^8.9.1",
+		"@navikt/aksel-icons": "^8.16.1",
+		"@navikt/ds-react": "^8.16.1",
+		"@navikt/ds-tailwind": "^8.16.1",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.57.1",
 		"@sveltejs/package": "^2.5.7",

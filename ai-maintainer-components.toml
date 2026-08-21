@@ -78,6 +78,23 @@ reason = "Menu triggers coordinate focus management and floating positioning."
 [components.Alert]
 status = "supported"
 risk = "low"
+upstream_paths = [
+  "@navikt/core/react/src/legacy/alert/Alert.tsx",
+  "@navikt/core/react/src/legacy/alert/Alert.meta.ts",
+  "@navikt/core/react/src/legacy/alert/Alert.stories.tsx",
+]
+target_paths = [
+  "packages/ds-svelte-community/src/lib/components/Alert/Alert.svelte",
+  "packages/ds-svelte-community/src/lib/components/Alert/type.ts",
+  "packages/ds-svelte-community/src/lib/components/Alert/alert.test.ts",
+  "packages/ds-svelte-community/src/routes/components/Alert/+page.svelte",
+]
+shared_dependencies = ["Button", "BodyLong"]
+parity_scenarios = [
+  "All variants and sizes with and without the close button",
+  "Full-width and inline rendering",
+  "Accessible icon and close-button labels",
+]
 
 [components.Bleed]
 status = "supported"
