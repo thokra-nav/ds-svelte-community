@@ -19,6 +19,7 @@ packages = [
   "@navikt/aksel-icons",
 ]
 changelog_ref = "main"
+ignore_releases_through = "v8.0.0"
 changelogs = [
   "@navikt/core/react/CHANGELOG.md",
   "@navikt/core/css/CHANGELOG.md",
