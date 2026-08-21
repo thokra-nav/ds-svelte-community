@@ -111,6 +111,22 @@ risk = "low"
 [components.Box]
 status = "supported"
 risk = "low"
+upstream_paths = [
+  "@navikt/core/react/src/primitives/box/Box.tsx",
+  "@navikt/core/react/src/primitives/box/Box.meta.ts",
+  "@navikt/core/react/src/primitives/box/Box.stories.tsx",
+  "@navikt/core/react/src/primitives/box/index.ts",
+]
+target_paths = [
+  "packages/ds-svelte-community/src/lib/components/primitives/Box/Box.svelte",
+  "packages/ds-svelte-community/src/lib/components/primitives/Box/type.ts",
+  "packages/ds-svelte-community/src/lib/components/primitives/Box/box.test.ts",
+]
+parity_scenarios = [
+  "Default element and content rendering",
+  "Responsive spacing and border radius",
+  "Background, border, and shadow tokens",
+]
 
 [components.BoxNew]
 status = "missing"
@@ -123,6 +139,29 @@ risk = "medium"
 [components.Chat]
 status = "supported"
 risk = "low"
+upstream_paths = [
+  "@navikt/core/react/src/chat/Chat.tsx",
+  "@navikt/core/react/src/chat/Bubble.tsx",
+  "@navikt/core/react/src/chat/Chat.meta.ts",
+  "@navikt/core/react/src/chat/Chat.stories.tsx",
+  "@navikt/core/react/src/chat/index.ts",
+]
+target_paths = [
+  "packages/ds-svelte-community/src/lib/components/Chat/Chat.svelte",
+  "packages/ds-svelte-community/src/lib/components/Chat/ChatBubble.svelte",
+  "packages/ds-svelte-community/src/lib/components/Chat/type.ts",
+  "packages/ds-svelte-community/src/lib/components/Chat/index.ts",
+  "packages/ds-svelte-community/src/lib/components/Chat/Chat.test.ts",
+  "packages/ds-svelte-community/src/lib/components/Chat/Chat.test.svelte",
+  "packages/ds-svelte-community/src/routes/components/Chat/+page.svelte",
+]
+shared_dependencies = ["BodyLong", "Detail", "Heading"]
+parity_scenarios = [
+  "Left and right positioned conversations",
+  "Variants, colors, sizes, and avatars",
+  "Single and multiple bubbles with names and timestamps",
+  "Top-text positioning and heading levels",
+]
 
 [components.ChatBubble]
 status = "supported"
