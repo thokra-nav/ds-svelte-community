@@ -131,6 +131,22 @@ parity_scenarios = [
 [components.BoxNew]
 status = "missing"
 risk = "low"
+upstream_paths = [
+  "@navikt/core/react/src/primitives/box/Box.tsx",
+  "@navikt/core/react/src/primitives/box/Box.meta.ts",
+  "@navikt/core/react/src/primitives/box/Box.stories.tsx",
+  "@navikt/core/react/src/primitives/box/index.ts",
+]
+target_paths = [
+  "packages/ds-svelte-community/src/lib/components/primitives/Box/Box.svelte",
+  "packages/ds-svelte-community/src/lib/components/primitives/Box/type.ts",
+  "packages/ds-svelte-community/src/lib/components/primitives/Box/box.test.ts",
+]
+parity_scenarios = [
+  "New Box API availability and default rendering",
+  "Responsive spacing and border radius",
+  "Background, border, and shadow tokens",
+]
 
 [components.Button]
 status = "supported"
@@ -155,7 +171,6 @@ target_paths = [
   "packages/ds-svelte-community/src/lib/components/Chat/Chat.test.svelte",
   "packages/ds-svelte-community/src/routes/components/Chat/+page.svelte",
 ]
-shared_dependencies = ["BodyLong", "Detail", "Heading"]
 parity_scenarios = [
   "Left and right positioned conversations",
   "Variants, colors, sizes, and avatars",
