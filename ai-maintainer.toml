@@ -36,7 +36,7 @@ on_warning = "prefer-lower-cost-routes"
 on_limit = "pause-new-model-work"
 
 [limits]
-max_active_pull_requests = 1
+max_active_pull_requests = 3
 max_parallel_tasks = 1
 max_attempts_per_task = 1
 max_changed_files = 10
@@ -60,6 +60,12 @@ complex_signals = [
   "new-cross-component-context",
   "screen-reader-specific-behavior",
 ]
+
+[reconciliation]
+enabled = true
+campaign_days = 14
+max_tasks_per_plan = 3
+age_boost_after_days = 30
 
 [pull_requests]
 grouping = "component-or-tightly-coupled-family"
