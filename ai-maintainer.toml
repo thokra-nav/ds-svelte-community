@@ -38,7 +38,7 @@ on_limit = "pause-new-model-work"
 [limits]
 max_active_pull_requests = 3
 max_parallel_tasks = 1
-max_attempts_per_task = 1
+max_attempts_per_task = 2
 max_changed_files = 10
 max_diff_lines = 750
 task_timeout_minutes = 45
